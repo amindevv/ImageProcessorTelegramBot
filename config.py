@@ -1,6 +1,6 @@
 
 # Telegram Bot Token
-TOKEN = "1086787905:AAH69hya-fhtn9z0BBCcnLyKiTUUo8z0JBQ"
+TOKEN = ""
 
 # Ngrok server urls, must be in HTTPS
 NGROK_URL = "https://c4adc940.ngrok.io"   
@@ -36,3 +36,5 @@ FRAME_PATH = "frames/base.png"
 # You can improve this by inserting user's name as parameter
 MESSAGE_WELCOME_STARTED = "Hey there! welcome. Send me a photo of your choice!"
 MESSAGE_PHOTO_EDITED = "Thanks for using our bot, Here is your photo!"
+MESSAGE_PHOTO_ERROR = "You should send a photo"
+MESSAGE_ERROR = "Sorry, an error happened :( Please try again!"
