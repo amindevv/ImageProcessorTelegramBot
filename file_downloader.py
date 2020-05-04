@@ -2,9 +2,11 @@
 import urllib.request
 import requests
 
-from config import TELEGRAM_GET_FILE_PATH_URL
-from config import TELEGRAM_GET_FILE_URL
-from config import FILE_SAVE_PATH
+from image_processor import ImageProcessor
+
+from config import TELEGRAM_GET_FILE_PATH_URL as url_file_path
+from config import TELEGRAM_GET_FILE_URL as url_file
+from config import FILE_SAVE_PATH as url_file_output
 
 class FileDownloader:
 
@@ -17,9 +19,9 @@ class FileDownloader:
     self.processor = processor
 
   # This guy send's a request to telegram to fetch the file path
-  def getFilePath(self):
+  def get_file_path(self):
 
-    url = TELEGRAM_GET_FILE_PATH_URL.format(self.file_id)
+    url = url_file_path.format(self.file_id)
 
     response = requests.get(url)
 
@@ -27,29 +29,29 @@ class FileDownloader:
 
     file_path = response_json['result']['file_path']
 
-    self.downloadFile(file_path)      
+    self.download_file(file_path)      
 
   # Download's the file using the file_path
-  def downloadFile(self, file_path):
+  def download_file(self, file_path):
 
-    file_name = self.getFileName() + ".jpg"
+    file_name = self.get_file_name() + ".jpg"
  
-    file_path_url = TELEGRAM_GET_FILE_URL.format(file_path)
+    file_path_url = url_file.format(file_path)
 
-    file_save_path = FILE_SAVE_PATH + file_name
+    file_save_path = url_file_output + file_name
 
     urllib.request.urlretrieve(file_path_url, file_save_path)
 
-    self.sendToFileProcessor(file_name)
+    self.send_to_file_processor(file_name)
 
   # Send the file using local file path to apply the frame
-  def sendToFileProcessor(self, downloaded_path):
+  def send_to_file_processor(self, downloaded_path):
 
     # Image processor automatically starts the process
-    pass
+    ImageProcessor(downloaded_path, self.chat_id, self.message_id, self.processor)
 
   # Saves the file to a JPEG 
-  def getFileName(self):
+  def get_file_name(self):
 
     # user_name + _ + message_id + _ + chat_id
     return f"{self.username}_{self.message_id}_{self.chat_id}"
