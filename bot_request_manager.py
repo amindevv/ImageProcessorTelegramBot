@@ -12,11 +12,14 @@ class BotRequestManager:
     self.type = None
     self.request = request
 
+    # Parse the request from Telegram
+    self.__parse_request_data()
+
   """ Parses Telegram JSON request from webhook 
   and sets fields for conditional actions. Most importantly,
   it defines the Type of the message which is later used for
   specific actions based on the Type """
-  def parse_request_data(self):
+  def __parse_request_data(self):
 
     Utils.print_json(self.request)
 
@@ -30,19 +33,30 @@ class BotRequestManager:
       
       self.type = TYPE_PHOTO
       
-    elif ("text" in keys):
-            
+    elif ("text" in keys):          
       self.type = TYPE_TEXT
 
       # If it was the user's first message
       if message['text'] == "/start":
-
         self.type = TYPE_WELCOME              
 
-  """ Does different task based on Type """
+  """ Does different task based on Type returns success
+  which will tell telegram that the message is received """
   def get_result(self):
 
     success = None 
+
+    message = self.request
+
+    if self.type == TYPE_PHOTO:
+      # Start Photo processing
+      success = True
+
+    elif self.type == TYPE_WELCOME:
+      success = True
+
+    else:
+      success = True  
 
     return success
 

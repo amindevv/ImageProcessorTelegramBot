@@ -1,6 +1,7 @@
 import requests
 
 from flask import Flask, request, jsonify
+from bot_request_manager import BotRequestManager
 
 app = Flask(__name__)
 
@@ -9,8 +10,9 @@ def index():
 
   req = request.get_json()
 
-  # Temp
-  success = True
+  request_manager = BotRequestManager(req)
+
+  success = request_manager.get_result()
 
   return jsonify(success = success)
 
