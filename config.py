@@ -14,6 +14,9 @@ BASE_TELEGRAM_FILE_URL = f"https://api.telegram.org/file/bot{TOKEN}"
 # Webhook address
 LOCAL_WEBHOOK_ENDPOINT = f"{NGROK_URL}/webhook"  
 
+# Admin chat id which is used to send reports
+TELEGRAM_ADMIN_CHAT_ID = ""
+
 TELEGRAM_INIT_WEBHOOK_URL = BASE_TELEGRAM_URL + f"/setWebhook?url={LOCAL_WEBHOOK_ENDPOINT}"
 TELEGRAM_SEND_MESSAGE_URL = BASE_TELEGRAM_URL + "/sendMessage?chat_id={}&text={}"
 TELEGRAM_GET_FILE_PATH_URL = BASE_TELEGRAM_URL + "/getFile?file_id={}"
